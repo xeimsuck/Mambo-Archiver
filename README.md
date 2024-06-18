@@ -1,6 +1,6 @@
 # Mambo - Archiver
 ## Idea
-Mambo is file archiver (library, console and gui)
+Mambo is file archiver 
 
 ## Supported
 Linux  
