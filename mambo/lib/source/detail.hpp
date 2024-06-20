@@ -2,6 +2,8 @@
 #define MAMBO_DETAIL_HPP
 
 #include <fstream>
+#include <unordered_map>
+#include <vector>
 #include <string>
 
 namespace mambo::detail {
@@ -25,6 +27,7 @@ namespace mambo::detail {
     int getFileSize(std::fstream& stream);
     int getFileSize(const std::string& path);
     node* getHuffmanCodes(std::fstream& stream);
+    void getBits(node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map);
 }
 
 #endif //MAMBO_DETAIL_HPP

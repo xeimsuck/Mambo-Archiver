@@ -65,3 +65,17 @@ void mambo::detail::deletenodetree(mambo::detail::node *root) {
     deletenodetree(root->right);
     delete root;
 }
+
+void mambo::detail::getBits(mambo::detail::node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map){
+    if(!root) return;
+    if(!root->left && !root->right) {
+        map[root->symbol] = v;
+        return;
+    }
+    v.push_back(1);
+    getBits(root->left, v, map);
+    v.pop_back();
+    v.push_back(0);
+    getBits(root->right, v, map);
+    v.pop_back();
+}
