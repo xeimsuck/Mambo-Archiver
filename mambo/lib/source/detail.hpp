@@ -20,6 +20,7 @@ namespace mambo::detail {
     struct nodecomparator {
         bool operator()(node*l, node*r) { return l->frequency>r->frequency; }
     };
+    void deletenodetree(node* root);
 
     int getFileSize(std::fstream& stream);
     int getFileSize(const std::string& path);
