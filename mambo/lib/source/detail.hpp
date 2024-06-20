@@ -22,11 +22,16 @@ namespace mambo::detail {
     struct nodecomparator {
         bool operator()(node*l, node*r) { return l->frequency>r->frequency; }
     };
+
     void deleteNodeTree(node* root);
 
     int getFileSize(std::fstream& stream);
     int getFileSize(const std::string& path);
-    node* getHuffmanCodes(std::fstream& stream);
+
+    node* getHuffmanCodes(const std::string& path);
+    node* getHuffmanCodes(const std::vector<std::string>& paths);
+    node* getHuffmanCodes(const std::unordered_map<char, int>& nodes);
+
     void getBits(node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map);
 }
 

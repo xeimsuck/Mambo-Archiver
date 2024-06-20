@@ -25,13 +25,33 @@ bool fun(mambo::detail::node* l, mambo::detail::node* r) {
 }
 
 
-mambo::detail::node* mambo::detail::getHuffmanCodes(std::fstream &stream) {
+mambo::detail::node* mambo::detail::getHuffmanCodes(const std::string &path) {
     std::unordered_map<char, int> nodes;
+    std::fstream stream(path, std::ios::in | std::ios::binary);
     std::string line;
+    if(!stream.is_open()) return nullptr;
     while(std::getline(stream, line)){
         for(auto c : line) ++nodes[c];
     }
+    stream.close();
+    return getHuffmanCodes(nodes);
+}
 
+mambo::detail::node* mambo::detail::getHuffmanCodes(const std::vector<std::string>& paths) {
+    std::unordered_map<char, int> nodes;
+    for(decltype(auto) path : paths){
+        std::fstream stream(path, std::ios::in | std::ios::binary);
+        std::string line;
+        if(!stream.is_open()) return nullptr;
+        while(std::getline(stream, line)){
+            for(auto c : line) ++nodes[c];
+        }
+        stream.close();
+    }
+    return getHuffmanCodes(nodes);
+}
+
+mambo::detail::node* mambo::detail::getHuffmanCodes(const std::unordered_map<char, int>& nodes) {
     if(nodes.empty()) return nullptr;
 
     std::priority_queue<node*, std::vector<node*>, nodecomparator> queue;
