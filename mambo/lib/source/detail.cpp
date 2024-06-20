@@ -86,6 +86,11 @@ void mambo::detail::deleteNodeTree(mambo::detail::node *root) {
     delete root;
 }
 
+void mambo::detail::getBits(mambo::detail::node* root, std::unordered_map<char, std::vector<int>>& map){
+    std::vector<int> tmp;
+    getBits(root, tmp, map);
+}
+
 void mambo::detail::getBits(mambo::detail::node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map){
     if(!root) return;
     if(!root->left && !root->right) {

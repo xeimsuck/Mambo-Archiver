@@ -32,6 +32,7 @@ namespace mambo::detail {
     node* getHuffmanCodes(const std::vector<std::string>& paths);
     node* getHuffmanCodes(const std::unordered_map<char, int>& nodes);
 
+    void getBits(node* root, std::unordered_map<char, std::vector<int>>& map);
     void getBits(node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map);
 }
 
