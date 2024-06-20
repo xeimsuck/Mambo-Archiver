@@ -59,10 +59,10 @@ mambo::detail::node* mambo::detail::getHuffmanCodes(std::fstream &stream) {
     return queue.top();
 }
 
-void mambo::detail::deletenodetree(mambo::detail::node *root) {
+void mambo::detail::deleteNodeTree(mambo::detail::node *root) {
     if(!root)return;
-    deletenodetree(root->left);
-    deletenodetree(root->right);
+    deleteNodeTree(root->left);
+    deleteNodeTree(root->right);
     delete root;
 }
 
