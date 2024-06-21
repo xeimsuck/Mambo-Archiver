@@ -1,23 +1,12 @@
 #include "detail.hpp"
 
 #include <unordered_map>
+#include <filesystem>
 #include <queue>
 #include <iostream>
 
-int mambo::detail::getFileSize(std::fstream &stream){
-    const auto prev = stream.tellg();
-    stream.seekg(std::ios::end);
-    const auto size = stream.tellg();
-    stream.seekg(prev);
-    return static_cast<int>(size);
-}
-
 int mambo::detail::getFileSize(const std::string &path) {
-    std::fstream stream(path, std::ios::binary);
-    if(!stream.is_open()) return -1;
-    int size = getFileSize(stream);
-    stream.close();
-    return size;
+    return static_cast<int>(std::filesystem::file_size(path));
 }
 
 bool fun(mambo::detail::node* l, mambo::detail::node* r) {
