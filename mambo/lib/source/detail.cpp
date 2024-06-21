@@ -9,6 +9,13 @@ int mambo::detail::getFileSize(const std::string &path) {
     return static_cast<int>(std::filesystem::file_size(path));
 }
 
+int mambo::detail::getFileSize(const std::vector<std::string>& paths) {
+    int size = 0;
+    for(decltype(auto) path : paths)
+        size+=static_cast<int>(getFileSize(path));
+    return size;
+}
+
 bool fun(mambo::detail::node* l, mambo::detail::node* r) {
     return l->frequency > r->frequency;
 }

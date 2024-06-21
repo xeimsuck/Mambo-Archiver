@@ -26,6 +26,7 @@ namespace mambo::detail {
     void deleteNodeTree(node* root);
 
     int getFileSize(const std::string& path);
+    int getFileSize(const std::vector<std::string>& paths);
 
     node* getHuffmanCodes(const std::string& path);
     node* getHuffmanCodes(const std::vector<std::string>& paths);
