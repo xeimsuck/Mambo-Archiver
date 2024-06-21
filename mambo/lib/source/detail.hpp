@@ -34,6 +34,8 @@ namespace mambo::detail {
 
     void getBits(node* root, std::unordered_map<char, std::vector<int>>& map);
     void getBits(node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map);
+
+    std::string writeBits(const std::string& file, const std::unordered_map<char, std::vector<int>>& map);
 }
 
 #endif //MAMBO_DETAIL_HPP
