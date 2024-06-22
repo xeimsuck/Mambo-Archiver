@@ -1,7 +1,9 @@
 # Mambo - Archiver
 ## Idea
-Mambo is file archiver 
+Mambo is cross-platform file archiver.  
+Have a lib, console and gui versions.
 
 ## Supported
 Linux  
-Windows (soon)
+Windows  
+OS X
