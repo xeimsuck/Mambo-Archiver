@@ -21,7 +21,7 @@ double mambo::compress(const std::string& path, const std::vector<std::string>& 
 
     std::string result;
     for (decltype(auto) file : files) {
-        result+=detail::getFileName(file)+"\n\t\n\t"+detail::writeBits(file, huffmanMap);
+        result+=detail::getFileName(file)+"\n\t\n\t"+detail::writeBits(file, huffmanMap)+"\n\t\n\t";
     }
     outStream << result;
 
