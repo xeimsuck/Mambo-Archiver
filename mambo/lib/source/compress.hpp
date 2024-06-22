@@ -5,8 +5,8 @@
 #include <string>
 
 namespace mambo {
-    int compress(const char* path, unsigned n, const char** files);
-    int compress(const std::string& path, const std::vector<std::string>& files);
+    double compress(const char* path, unsigned n, const char** files);
+    double compress(const std::string& path, const std::vector<std::string>& files);
 }
 
 #endif //MAMBO_COMPRESS_HPP
