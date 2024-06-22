@@ -107,6 +107,26 @@ std::string mambo::detail::writeBits(const std::string &file, std::unordered_map
     std::fstream stream (file, std::ios::in | std::ios::binary);
     if(!stream.is_open()) return "";
 
+    char sym;
+    int c = 0, i = 7;
+    while (!stream.eof()) {
+        if(c==0) {
+            stream >> sym;
+            if(stream.eof()) break;
+        }
+        if(i==7) result.push_back(static_cast<int>(0));
+        decltype(auto) byte = result.back();
+        while(i>=0){
+            if(c==map[sym].size()) {
+                c = 0;
+                break;
+            }
+            byte = byte | map[sym][c] << i;
+            --i; ++c;
+        }
+        if(i==-1) i = 7;
+    }
+
     stream.close();
 
     return result;
