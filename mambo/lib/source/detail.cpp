@@ -101,7 +101,7 @@ void mambo::detail::getBits(mambo::detail::node* root, std::vector<int>&v, std::
     v.pop_back();
 }
 
-std::string mambo::detail::writeBits(const std::string &file, const std::unordered_map<char, std::vector<int>>& map) {
+std::string mambo::detail::writeBits(const std::string &file, std::unordered_map<char, std::vector<int>>& map) {
     std::string result;
 
     std::fstream stream (file, std::ios::in | std::ios::binary);
