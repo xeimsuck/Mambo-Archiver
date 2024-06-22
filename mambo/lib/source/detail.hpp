@@ -27,6 +27,7 @@ namespace mambo::detail {
 
     int getFileSize(const std::string& path);
     int getFileSize(const std::vector<std::string>& paths);
+    std::string getFileName(const std::string& fullPath);
 
     node* getHuffmanCodes(const std::string& path);
     node* getHuffmanCodes(const std::vector<std::string>& paths);
@@ -34,6 +35,7 @@ namespace mambo::detail {
 
     void getBits(node* root, std::unordered_map<char, std::vector<int>>& map);
     void getBits(node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map);
+
 
     std::string writeBits(const std::string& file, std::unordered_map<char, std::vector<int>>& map);
     std::string readBits(const std::string& file, std::unordered_map<char, std::vector<int>>& map);

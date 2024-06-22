@@ -16,10 +16,9 @@ int mambo::detail::getFileSize(const std::vector<std::string>& paths) {
     return size;
 }
 
-bool fun(mambo::detail::node* l, mambo::detail::node* r) {
-    return l->frequency > r->frequency;
+std::string mambo::detail::getFileName(const std::string &fullPath) {
+    return fullPath.substr(fullPath.find_last_of('/')+1);
 }
-
 
 mambo::detail::node* mambo::detail::getHuffmanCodes(const std::string &path) {
     std::unordered_map<char, int> nodes;
