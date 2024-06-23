@@ -130,3 +130,34 @@ std::string mambo::detail::writeBits(const std::string &file, std::unordered_map
 
     return result;
 }
+
+bool mambo::detail::checkSignature(const std::string &path) {
+
+
+    std::string signature;
+    for(int i = 0; i<3&&; ++i){
+
+    }
+    return signature=="mam";
+}
+
+std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::vector<int>> &map) {
+    std::string result;
+    for (decltype(auto) pair : map){
+        result += pair.first;
+        for(auto i : pair.second) result += static_cast<char>(i);
+        result+="\0";
+    }
+    return result;
+}
+
+std::string mambo::detail::findHuffmanMap(const std::string &path) {
+    std::fstream stream(path, std::ios::in | std::ios::binary);
+    if(stream.is_open()) return "";
+
+    char ch;
+}
+
+std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(const std::vector<unsigned char>& bytes) {
+
+}
