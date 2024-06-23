@@ -7,6 +7,7 @@
 #include <string>
 
 namespace mambo::detail {
+    constexpr std::string SIGNATURE = "mam";
     // Struct which stay first in .mam
     struct header {
         long size;
@@ -35,6 +36,8 @@ namespace mambo::detail {
 
     void getBits(node* root, std::unordered_map<char, std::vector<int>>& map);
     void getBits(node* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map);
+
+    bool checkSignature(const std::string& path);
 
     std::string writeHuffmanMap(std::unordered_map<char, std::vector<int>>& map);
     std::string findHuffmanMap(const std::string& path);
