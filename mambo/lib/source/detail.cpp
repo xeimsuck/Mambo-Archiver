@@ -51,7 +51,7 @@ mambo::detail::node* mambo::detail::getHuffmanCodes(const std::unordered_map<cha
 
     std::priority_queue<node*, std::vector<node*>, nodecomparator> queue;
 
-    for(auto pair : nodes) {
+    for(decltype(auto) pair : nodes) {
         queue.push(new node{pair.first, pair.second, nullptr, nullptr});
     }
 
@@ -138,4 +138,51 @@ bool mambo::detail::checkSignature(const std::string &path) {
     stream.read(signature.data(), SIGNATURE.size());
     stream.close();
     return signature==SIGNATURE;
+}
+
+std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::vector<int>> &map) {
+    std::string result;
+    for (decltype(auto) pair : map){
+        char bytes[64]{};
+        for(int i = 0; i<pair.second.size(); ++i)
+            bytes[i/8] = bytes[i/8] | pair.second[i] << (7-i%8);
+        result += std::string{pair.first} + static_cast<char>(pair.second.size());
+        for(int i = 0; i <= (pair.second.size()-1)/8; ++i) result+=bytes[i];
+    }
+    result+="\t";
+    return result;
+}
+
+std::string mambo::detail::findHuffmanMap(const std::string &path) {
+    if(!checkSignature(path)) return "";
+
+    std::fstream stream(path, std::ios::in | std::ios::binary);
+    if(stream.is_open()) return "";
+
+    std::string line;
+    std::getline(stream, line, '\t');
+
+    return line.substr(3);
+}
+
+std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(const std::string& bytes) {
+    std::unordered_map<char, std::vector<int>> map;
+
+    for(int i = 0; i < bytes.size();++i){
+        char symbol = bytes[i++];
+        char size = bytes[i++];
+
+        std::vector<int> v;
+        for(int j = 0; j<((size-1)/8); ++j){
+            for(int k = 7; k >= 0; --k) {
+                v.push_back(std::abs((bytes[i] >> k)%2));
+            }
+            ++i;
+        }
+        for(int k = 7; k >= 7-(size-1)%8; --k) {
+            v.push_back(std::abs((bytes[i] >> k)%2));
+        }
+        map[symbol] = std::move(v);
+    }
+    return map;
 }

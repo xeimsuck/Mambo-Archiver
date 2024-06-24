@@ -41,7 +41,7 @@ namespace mambo::detail {
 
     std::string writeHuffmanMap(std::unordered_map<char, std::vector<int>>& map);
     std::string findHuffmanMap(const std::string& path);
-    std::unordered_map<char, std::vector<int>> readHuffmanMap(const std::vector<unsigned char>& bytes);
+    std::unordered_map<char, std::vector<int>> readHuffmanMap(const std::string& bytes);
 
     std::string writeBits(const std::string& file, std::unordered_map<char, std::vector<int>>& map);
     std::string readBits(const std::string& file, std::unordered_map<char, std::vector<int>>& map);
