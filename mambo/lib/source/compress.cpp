@@ -19,14 +19,17 @@ double mambo::compress(const std::string& path, const std::vector<std::string>& 
     std::unordered_map<char, std::vector<int>> huffmanMap;
     detail::getBits(root, huffmanMap);
 
-    std::string result = detail::SIGNATURE;
-    result+=detail::writeHuffmanMap(huffmanMap) + "\t";
+    outStream << detail::SIGNATURE;
+
+    auto strHuffmanMap = detail::writeHuffmanMap(huffmanMap);
+    outStream << strHuffmanMap.size() << strHuffmanMap;
+
     for (decltype(auto) file : files) {
-        result+=detail::getFileName(file)+"\n\t"+detail::writeBits(file, huffmanMap)+"\n\t\n\t";
+        std::string compressed = detail::writeBits(file, huffmanMap);
+        outStream << file.size() << file << compressed.size() << compressed;
     }
-    outStream << result;
 
     detail::deleteNodeTree(root);
 
-    return static_cast<double>(detail::getFileSize(files))/static_cast<double>(result.size());
+    return static_cast<double>(detail::getFileSize(files))/static_cast<double>(detail::getFileSize(path));
 }

@@ -143,7 +143,7 @@ bool mambo::detail::checkSignature(const std::string &path) {
 std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::vector<int>> &map) {
     std::string result;
     for (decltype(auto) pair : map){
-        char bytes[64]{};
+        char bytes[16]{};
         for(int i = 0; i<pair.second.size(); ++i)
             bytes[i/8] = bytes[i/8] | pair.second[i] << (7-i%8);
         result += std::string{pair.first} + static_cast<char>(pair.second.size());
@@ -158,10 +158,13 @@ std::string mambo::detail::findHuffmanMap(const std::string &path) {
     std::fstream stream(path, std::ios::in | std::ios::binary);
     if(!stream.is_open()) return "";
 
-    std::string line;
-    std::getline(stream, line, '\t');
+    size_t size;
+    char signature[SIGNATURE.size()+1];
+    stream >> signature >> size;
 
-    return line.substr(3);
+    std::string result(size, '9');
+    stream.read(result.data(), size);
+    return result;
 }
 
 std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(const std::string& bytes) {
