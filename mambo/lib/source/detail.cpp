@@ -156,7 +156,7 @@ std::string mambo::detail::findHuffmanMap(const std::string &path) {
     if(!checkSignature(path)) return "";
 
     std::fstream stream(path, std::ios::in | std::ios::binary);
-    if(stream.is_open()) return "";
+    if(!stream.is_open()) return "";
 
     std::string line;
     std::getline(stream, line, '\t');
