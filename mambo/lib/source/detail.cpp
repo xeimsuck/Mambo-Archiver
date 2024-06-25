@@ -149,7 +149,6 @@ std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::vector<
         result += std::string{pair.first} + static_cast<char>(pair.second.size());
         for(int i = 0; i <= (pair.second.size()-1)/8; ++i) result+=bytes[i];
     }
-    result+="\t";
     return result;
 }
 

@@ -20,7 +20,7 @@ double mambo::compress(const std::string& path, const std::vector<std::string>& 
     detail::getBits(root, huffmanMap);
 
     std::string result = detail::SIGNATURE;
-    result+=detail::writeHuffmanMap(huffmanMap);
+    result+=detail::writeHuffmanMap(huffmanMap) + "\t";
     for (decltype(auto) file : files) {
         result+=detail::getFileName(file)+"\n\t"+detail::writeBits(file, huffmanMap)+"\n\t\n\t";
     }
