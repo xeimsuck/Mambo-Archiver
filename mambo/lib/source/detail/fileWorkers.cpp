@@ -1,7 +1,8 @@
 #include "fileWorkers.hpp"
-#include "detail.hpp"
+#include "constants.hpp"
 
 #include <filesystem>
+#include "iostream"
 
 int mambo::detail::getFileSize(const std::string &path) {
     return static_cast<int>(std::filesystem::file_size(path));
@@ -75,8 +76,8 @@ std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(std::fs
 
     for(int i = 0; i < size;++i){
         char symbol, scale;
-        stream.get(symbol);
-        stream.get(scale);
+        stream.get(symbol); ++i;
+        stream.get(scale); ++i;
 
         std::vector<int> v;
         char byte;
