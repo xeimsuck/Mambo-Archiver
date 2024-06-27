@@ -26,7 +26,8 @@ double mambo::compress(const std::string& path, const std::vector<std::string>& 
 
     for (decltype(auto) file : files) {
         std::string compressed = detail::getCompressedFile(file, huffmanMap);
-        outStream << file.size() << detail::getFileName(file) << compressed.size() << compressed;
+        std::string fileName = detail::getFileName(file);
+        outStream << fileName.size() << fileName << compressed.size() << compressed;
     }
 
     outStream.close();
