@@ -18,6 +18,8 @@ namespace mambo::detail {
 
     std::string writeHuffmanMap(std::unordered_map<char, std::vector<int>>& map);
     std::unordered_map<char, std::vector<int>> readHuffmanMap(std::fstream& stream);
+
+    std::string readFileName(std::fstream& stream);
 }
 
 #endif //MAMBO_FILEWORKERS_HPP

@@ -96,3 +96,13 @@ std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(std::fs
     }
     return map;
 }
+
+std::string mambo::detail::readFileName(std::fstream &stream) {
+    std::size_t size;
+    stream>>size;
+
+    std::string name(size, '\0');
+    stream.read(name.data(), static_cast<std::streamsize>(name.size()));
+
+    return name;
+}
