@@ -71,13 +71,13 @@ std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::vector<
 }
 std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(std::fstream& stream) {
     std::unordered_map<char, std::vector<int>> map;
-    size_t size;
-    stream >> size;
+    size_t huffmanMapSize;
+    stream >> huffmanMapSize;
 
-    for(int i = 0; i < size;++i){
+    for(int i = 0; i < huffmanMapSize; ++i){
         char symbol, scale;
-        stream.get(symbol); ++i;
-        stream.get(scale); ++i;
+        stream.get(symbol);
+        stream.get(scale);
 
         std::vector<int> v;
         char byte;
@@ -86,7 +86,6 @@ std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(std::fs
             for(int k = 7; k >= 0; --k) {
                 v.push_back(std::abs((byte >> k)%2));
             }
-            ++i;
         }
         stream.get(byte);
         for(int k = 7; k >= 7-(scale-1)%8; --k) {

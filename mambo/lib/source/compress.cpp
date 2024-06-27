@@ -21,8 +21,7 @@ double mambo::compress(const std::string& path, const std::vector<std::string>& 
 
     outStream << detail::SIGNATURE;
 
-    auto strHuffmanMap = detail::writeHuffmanMap(huffmanMap);
-    outStream << static_cast<size_t>(strHuffmanMap.size()) << strHuffmanMap;
+    outStream << huffmanMap.size() << detail::writeHuffmanMap(huffmanMap);
 
     for (decltype(auto) file : files) {
         std::string compressed = detail::getCompressedFile(file, huffmanMap);
