@@ -14,12 +14,13 @@ namespace mambo::detail {
 
     bool checkSignature(std::fstream& stream);
 
-    std::string getCompressedFile(const std::string& file, std::unordered_map<char, std::vector<int>>& map);
 
-    std::string writeHuffmanMap(std::unordered_map<char, std::vector<int>>& map);
-    std::unordered_map<char, std::vector<int>> readHuffmanMap(std::fstream& stream);
+    std::string writeHuffmanMap(std::unordered_map<char, std::string>& map);
+    std::unordered_map<char, std::string> readHuffmanMap(std::fstream& stream);
 
     std::string readFileName(std::fstream& stream);
+
+    std::string writeCompressedFile(const std::string& file, std::unordered_map<char, std::string>& map);
 }
 
 #endif //MAMBO_FILEWORKERS_HPP

@@ -27,7 +27,7 @@ bool mambo::detail::checkSignature(std::fstream& stream) {
     return signature==SIGNATURE;
 }
 
-std::string mambo::detail::getCompressedFile(const std::string &file, std::unordered_map<char, std::vector<int>>& map) {
+std::string mambo::detail::writeCompressedFile(const std::string &file, std::unordered_map<char, std::string>& map) {
     std::string result;
 
     std::fstream stream (file, std::ios::in | std::ios::binary);
@@ -58,7 +58,7 @@ std::string mambo::detail::getCompressedFile(const std::string &file, std::unord
     return result;
 }
 
-std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::vector<int>> &map) {
+std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::string> &map) {
     std::string result;
     for (decltype(auto) pair : map){
         char bytes[16]{};
@@ -69,8 +69,8 @@ std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::vector<
     }
     return result;
 }
-std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(std::fstream& stream) {
-    std::unordered_map<char, std::vector<int>> map;
+std::unordered_map<char, std::string> mambo::detail::readHuffmanMap(std::fstream& stream) {
+    std::unordered_map<char, std::string> map;
     size_t huffmanMapSize;
     stream >> huffmanMapSize;
 
@@ -79,19 +79,19 @@ std::unordered_map<char, std::vector<int>> mambo::detail::readHuffmanMap(std::fs
         stream.get(symbol);
         stream.get(scale);
 
-        std::vector<int> v;
+        std::string str;
         char byte;
         for(int j = 0; j<((scale-1)/8); ++j){
             stream.get(byte);
             for(int k = 7; k >= 0; --k) {
-                v.push_back(std::abs((byte >> k)%2));
+                str.push_back(static_cast<char>(std::abs((byte >> k)%2)));
             }
         }
         stream.get(byte);
         for(int k = 7; k >= 7-(scale-1)%8; --k) {
-            v.push_back(std::abs((byte >> k)%2));
+            str.push_back(static_cast<char>(std::abs((byte >> k)%2)));
         }
-        map[symbol] = std::move(v);
+        map[symbol] = std::move(str);
     }
     return map;
 }

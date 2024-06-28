@@ -70,20 +70,20 @@ mambo::detail::huffmanNode* mambo::detail::getHuffmanCodes(const std::unordered_
     return queue.top();
 }
 
-void mambo::detail::convertHuffmanTreeToMap(mambo::detail::huffmanNode* root, std::unordered_map<char, std::vector<int>>& map){
-    std::vector<int> tmp;
-    convertHuffmanTreeToMap(root, tmp, map);
+void mambo::detail::convertHuffmanTreeToMap(mambo::detail::huffmanNode* root, std::unordered_map<char, std::string>& map){
+    std::string code;
+    convertHuffmanTreeToMap(root, code, map);
 }
-void mambo::detail::convertHuffmanTreeToMap(mambo::detail::huffmanNode* root, std::vector<int>&v, std::unordered_map<char, std::vector<int>>& map){
+void mambo::detail::convertHuffmanTreeToMap(mambo::detail::huffmanNode *root, std::string& huffmanCode, std::unordered_map<char, std::string>& huffmanMap){
     if(!root) return;
     if(!root->left && !root->right) {
-        map[root->symbol] = v;
+        huffmanMap[root->symbol] = huffmanCode;
         return;
     }
-    v.push_back(1);
-    convertHuffmanTreeToMap(root->left, v, map);
-    v.pop_back();
-    v.push_back(0);
-    convertHuffmanTreeToMap(root->right, v, map);
-    v.pop_back();
+    huffmanCode.push_back(static_cast<char>(1));
+    convertHuffmanTreeToMap(root->left, huffmanCode, huffmanMap);
+    huffmanCode.pop_back();
+    huffmanCode.push_back(static_cast<char>(0));
+    convertHuffmanTreeToMap(root->right, huffmanCode, huffmanMap);
+    huffmanCode.pop_back();
 }
