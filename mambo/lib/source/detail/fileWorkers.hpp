@@ -21,7 +21,6 @@ namespace mambo::detail {
     std::string readFileName(std::fstream& stream);
 
     std::string writeCompressedFile(const std::string& file, std::unordered_map<char, std::string>& map);
-    std::string readCompressedFile(std::fstream& stream, std::unordered_map<char, std::string>& huffmanMap);
 }
 
 #endif //MAMBO_FILEWORKERS_HPP

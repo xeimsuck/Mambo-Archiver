@@ -37,6 +37,7 @@ mambo::detail::huffmanNode* mambo::detail::getHuffmanCodes(const std::vector<std
         if(!stream.is_open()) return nullptr;
         while(std::getline(stream, line)){
             for(auto c : line) ++nodes[c];
+            ++nodes['\n'];
         }
         stream.close();
     }

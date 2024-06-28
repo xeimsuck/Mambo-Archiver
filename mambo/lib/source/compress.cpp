@@ -11,6 +11,8 @@ double mambo::compress(const char* path, unsigned n, const char** files){
 }
 
 double mambo::compress(const std::string& path, const std::vector<std::string>& files){
+    size_t temp = 0;
+
     std::fstream outStream(path, std::ios::out | std::ios::binary);
     if(!outStream.is_open()) return -1;
 
@@ -19,12 +21,24 @@ double mambo::compress(const std::string& path, const std::vector<std::string>& 
     detail::convertHuffmanTreeToMap(root, huffmanMap);
     detail::deleteHuffmanNodeTree(root);
 
-    outStream << detail::SIGNATURE << huffmanMap.size() << detail::writeHuffmanMap(huffmanMap) << files.size();
+    outStream << detail::SIGNATURE;
+
+    temp = huffmanMap.size();
+    outStream.write(reinterpret_cast<char*>(&temp), sizeof(temp));
+    outStream << detail::writeHuffmanMap(huffmanMap);
+
+    temp = files.size();
+    outStream.write(reinterpret_cast<char*>(&temp), sizeof(temp));
 
     for (decltype(auto) file : files) {
         std::string compressed = detail::writeCompressedFile(file, huffmanMap);
         std::string fileName = detail::getFileName(file);
-        outStream << fileName.size() << fileName << compressed.size() << compressed;
+        temp = fileName.size();
+        outStream.write(reinterpret_cast<char*>(&temp), sizeof(temp));
+        outStream << fileName;
+        temp = compressed.size();
+        outStream.write(reinterpret_cast<char*>(&temp), sizeof(temp));
+        outStream << compressed;
     }
 
     outStream.close();

@@ -73,7 +73,7 @@ std::string mambo::detail::writeHuffmanMap(std::unordered_map<char, std::string>
 std::unordered_map<char, std::string> mambo::detail::readHuffmanMap(std::fstream& stream) {
     std::unordered_map<char, std::string> map;
     size_t huffmanMapSize;
-    stream >> huffmanMapSize;
+    stream.read(reinterpret_cast<char*>(&huffmanMapSize), sizeof(huffmanMapSize));
 
     for(int i = 0; i < huffmanMapSize; ++i){
         char symbol, scale;
@@ -99,7 +99,7 @@ std::unordered_map<char, std::string> mambo::detail::readHuffmanMap(std::fstream
 
 std::string mambo::detail::readFileName(std::fstream &stream) {
     std::size_t size;
-    stream>>size;
+    stream.read(reinterpret_cast<char*>(&size), sizeof(size));
 
     std::string name(size, '\0');
     stream.read(name.data(), static_cast<std::streamsize>(name.size()));
@@ -107,30 +107,3 @@ std::string mambo::detail::readFileName(std::fstream &stream) {
     return name;
 }
 
-std::string mambo::detail::readCompressedFile(std::fstream& stream, std::unordered_map<char, std::string>& huffmanMap) {
-    std::string result;
-
-    std::size_t size = 0;
-    stream>>size;
-
-    std::unordered_map<std::string, char> reversedMap;
-    for(decltype(auto) pair : huffmanMap) reversedMap[pair.second] = pair.first;
-
-    std::string str;
-    std::unordered_map<std::string, char>::iterator it;
-
-    for(int i = 0; i < size; ++i){
-        char byte;
-        stream.get(byte);
-        for(int j = 7; j>=0; --j){
-            str.push_back(static_cast<char>(std::abs(byte>>j)%2));
-            it = reversedMap.find(str);
-            if(it!=reversedMap.end()){
-                result.push_back(reversedMap[str]);
-                str.clear();
-            }
-        }
-    }
-
-    return result;
-}
