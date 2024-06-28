@@ -37,7 +37,7 @@ std::string mambo::detail::writeCompressedFile(const std::string &file, std::uno
     int c = 0, i = 7;
     while (!stream.eof()) {
         if(c==0) {
-            stream >> sym;
+            stream.get(sym);
             if(stream.eof()) break;
         }
         if(i==7) result.push_back(static_cast<int>(0));
@@ -50,6 +50,7 @@ std::string mambo::detail::writeCompressedFile(const std::string &file, std::uno
             byte = byte | map[sym][c] << i;
             --i; ++c;
         }
+        if(c==map[sym].size()) c = 0;
         if(i==-1) i = 7;
     }
 
