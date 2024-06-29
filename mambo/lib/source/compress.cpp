@@ -13,6 +13,8 @@ double mambo::compress(const char* path, unsigned n, const char** files){
 double mambo::compress(const std::string& path, const std::vector<std::string>& files){
     size_t temp = 0;
 
+    if(files.empty()) return -1;
+
     std::fstream outStream(path, std::ios::out | std::ios::binary);
     if(!outStream.is_open()) return -1;
 
