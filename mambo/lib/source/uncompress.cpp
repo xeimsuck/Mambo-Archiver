@@ -13,20 +13,20 @@ int mambo::uncompress(const std::string &archive, const std::string &where)  {
 
     if(!detail::checkSignature(in)){
         in.close();
-        return 1;
+        return -1;
     }
 
     auto huffmanMap = detail::readHuffmanMap(in);
     if(huffmanMap.empty()){
         in.close();
-        return 1;
+        return -1;
     }
 
     std::size_t filesCount = 0;
     in.read(reinterpret_cast<char*>(&filesCount), sizeof(filesCount));
     for(int i = 0; i < filesCount; ++i){
         std::fstream out(where+detail::readFileName(in), std::ios::out);
-        if(!out.is_open()) return 1;
+        if(!out.is_open()) return -1;
         out << detail::readCompressedFile(in, huffmanMap);
         out.close();
     }
