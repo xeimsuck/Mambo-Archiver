@@ -33,8 +33,8 @@ mambo::gui::window::window() {
 }
 
 void mambo::gui::window::doCompress() {
-    auto archive = QFileDialog::getSaveFileName();
-    auto files = QFileDialog::getOpenFileNames();
+    auto archive = QFileDialog::getSaveFileName(nullptr, "Create Archive", "archive.mam", "*.mam");
+    auto files = QFileDialog::getOpenFileNames(nullptr, "Select Files");
     std::vector<std::string> vectorOfFiles(files.size());
     for(int i = 0; i < files.size(); ++i)
         vectorOfFiles[i] = files.at(i).toStdString();
@@ -47,8 +47,8 @@ void mambo::gui::window::doCompress() {
 }
 
 void mambo::gui::window::doUncompress() {
-    auto archive = QFileDialog::getOpenFileName();
-    auto where = QFileDialog::getExistingDirectory();
+    auto archive = QFileDialog::getOpenFileName(nullptr, "Select Archive", "", "*.mam");
+    auto where = QFileDialog::getExistingDirectory(nullptr, "Select Directory");
     auto result = mambo::uncompress(archive.toStdString(), where.toStdString());
     if(result){
         stateLabel->setText("UNCOMPRESS ERROR");
