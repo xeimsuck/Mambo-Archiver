@@ -18,3 +18,6 @@ The second one has two variations of use:
 2. GUI mode
 
 - Use flag --help to find out all commands
+
+- WARNING  
+mambo::detail namespace exclusively use for development so the author is not responsible for changing the signature
