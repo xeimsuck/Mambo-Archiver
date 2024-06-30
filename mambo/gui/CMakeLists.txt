@@ -5,6 +5,7 @@ file(GLOB_RECURSE mambo-gui_source
 )
 add_executable(mambo-gui ${mambo-gui_source})
 target_include_directories(mambo-gui PRIVATE source)
+set_target_properties(mambo-gui PROPERTIES AUTOMOC TRUE)
 ## link mambo
 target_link_libraries(mambo-gui mambo)
 target_include_directories(mambo-gui PRIVATE "../lib/source")
