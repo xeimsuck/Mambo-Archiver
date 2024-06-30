@@ -1,4 +1,4 @@
-# Mambo - Archiver (v0.3)
+# Mambo - Archiver (v1.0)
 ## Idea
 Mambo is cross-platform file archiver.  
 Has a lib, console and gui modes.
@@ -17,4 +17,4 @@ The second one has two variations of use:
 1. Console mode
 2. GUI mode
 
-- Use flag --help to find out all commands 
+- Use flag --help to find out all commands
